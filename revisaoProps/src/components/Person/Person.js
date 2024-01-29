@@ -4,10 +4,11 @@
 import { View, StyleSheet, Text } from "react-native";
 
 const Person = ({name, age}) => {
+      
     return(
         <View style = {styles.container}>
             <Text style= {styles.txt}>Name: {name}</Text>
-            <Text style= {styles.txt}>Age: {age}</Text>
+            <Text style= {styles.txt_age}>Age: {age}</Text>
         </View>
     );
 }
@@ -21,7 +22,13 @@ const styles = StyleSheet.create({
     },
     txt: {
         fontSize: 20,
-        fontWeight: '500'
+        fontWeight: '500',
+        fontFamily: 'Montserrat_600SemiBold'
+    },
+    txt_age: {
+        fontSize: 20,
+        fontWeight: '500',
+        fontFamily: 'Outfit_600SemiBold'
     }
 })
 
