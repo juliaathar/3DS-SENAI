@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {useFonts, Rubik_600SemiBold, Rubik_500Medium} from '@expo-google-fonts/rubik'
+import { Container } from './src/components/Container/Container';
 
 
 export default function App() {
@@ -32,7 +33,7 @@ export default function App() {
   }, [count])
 
   return (
-    <View style={styles.container}>
+    <Container>
       <Text style={styles.txt_count}>Contador: {count}</Text>
     
       <TouchableOpacity style={styles.btn} onPress={increment}>
@@ -42,18 +43,11 @@ export default function App() {
         <Text>Decrementar</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
-    </View>
+    </Container>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 20
-  },
   txt_count: {
     fontFamily: 'Rubik_500Medium'
   },
