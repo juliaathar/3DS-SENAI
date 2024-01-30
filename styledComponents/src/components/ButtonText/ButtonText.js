@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-export const Title = styled.Text`
+export const ButtonText = styled.Text`
     font-family: 'Rubik_500Medium';
-    font-size: 24px;
+    font-size: 18px;
     color: #FFFFFF;
-    margin-bottom: 130px;
 `
