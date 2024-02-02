@@ -1,20 +1,30 @@
-import{ useFonts, Roboto_500Medium, Roboto_700Bold  } from "@expo-google-fonts/roboto"
+//Import Styled
 import { ContainerApp } from './styles';
-import { StatusBar } from "react-native";
-import { Header } from "./src/components/Header";
+
+//Fonts
+import { useFonts } from 'expo-font';
+import { Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
+
+//Components
+import { Header } from './src/components/Header';
+import { Home } from './src/screens/Home';
 
 export default function App() {
-  
-  const [fontLoaded] = useFonts({
-    Roboto_500Medium,
-    Roboto_700Bold
+
+  //hooks para useFonts (fontes)
+  const [fontsLoaded, fontError] = useFonts({
+    Roboto_500Medium,Roboto_700Bold
   });
 
+  //validação de carregamento de fontes
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
-    <ContainerApp>
-      <StatusBar/>
-      <Header/>
+  <ContainerApp>
+      <Header/>   
       <Home/>
-    </ContainerApp>
+    </ContainerApp> 
   );
 }
