@@ -4,49 +4,45 @@ import { ContainerForm, ScrollForm, ViewUF } from "./style";
 //Componente BoxInput
 import { BoxInput } from "../../components/BoxInput";
 import { useEffect, useState } from "react";
-import { Axios } from "react-native-axios";
 import axios from "axios";
 
 export function Home() {
 
     //hooks -- states
 
-    const [cep, setCep] = useState('123456789');
-    const [logradouro, setLogradouro] = useState('aaaaaaaa');
-    const [bairro, setBairro] = useState('bbbbbbb');
-    const [cidade, setCidade] = useState('ccccccc');
-    const [estado, setEstado] = useState('dddddd');
-    const [uf, setUf] = useState('ee');
+    const [cep, setCep] = useState('');
+    const [logradouro, setLogradouro] = useState('');
+    const [bairro, setBairro] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [estado, setEstado] = useState('');
+    const [uf, setUf] = useState('');
+
 
     //hooks -- effect
 
-    useEffect(async () => {
-        //chamada da API
-
-        try {
-
-            if (cep != "" && cep.length === 8) {
-                const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-
-                if(response.error){
-                    alert("verifique o cep")
-                    return;
+    useEffect(() => {
+        const buscarDados = async () => {
+            if (cep !== "" && cep.length === 8) {
+                try {
+                    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+                    if (response.data) {
+                        setLogradouro(response.data.logradouro);
+                        setBairro(response.data.bairro);
+                        setCidade(response.data.localidade);
+                        setEstado(response.data.uf);
+                        setUf(response.data.uf);
+                    } else {
+                        alert("verifique o cep");
+                    }
+                } catch (error) {
+                    console.log("erro ao buscar cep", error);
                 }
+            }
+        };
 
-                setLogradouro(endereco.data.logradouro);
-                setBairro(endereco.data.bairro);
-                setCidade(endereco.data.cidade);
-                setEstado(endereco.data.uf);
-                setUf(endereco.data.uf);
-            }          
+        buscarDados();
+    }, [cep]);
 
-        } catch (error) {
-
-            console.log("Erro ao buscar o cep");
-            console.log(error);
-        }
-
-    }, [])
 
     return (
 
@@ -74,16 +70,19 @@ export function Home() {
                     textLabel="Logradouro"
                     placeholder="Logradouro..."
                     fieldValue={logradouro}
+                    onChangeText={tx => setLogradouro(tx)}
                 />
                 <BoxInput
                     textLabel="Bairro"
                     placeholder="Bairro..."
                     fieldValue={bairro}
+                    onChangeText={tx => setBairro(tx)}
                 />
                 <BoxInput
                     textLabel="Cidade"
                     placeholder="Cidade..."
                     fieldValue={cidade}
+                    onChangeText={tx => setCidade(tx)}
                 />
                 <ViewUF>
                     <BoxInput
@@ -91,12 +90,14 @@ export function Home() {
                         placeholder="Estado..."
                         fieldWidth="70"
                         fieldValue={estado}
+                        onChangeText={tx => setEstado(tx)}
                     />
                     <BoxInput
                         textLabel="UF"
                         placeholder="UF"
                         fieldWidth="20"
                         fieldValue={uf}
+                        onChangeText={tx => setUf(tx)}
                     />
                 </ViewUF>
             </ContainerForm>
